@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+// TODO:
+// YYYY/MM/DD 형식을 date로 반환하는 함수 만들기
+// date객체를 인자로 받아 크기를 비교하는 함수 만들기
 
 class Calendar extends Component {
 	constructor() {
@@ -87,7 +90,7 @@ class Calendar extends Component {
 			resolve(true);
 		});
 
-	// TODO: date 클릭
+	// TODO: date 클릭. MODE에 따른 분기 필요
 	clickDate = async (e) => {
 		console.log(e.target.name);
 	};
@@ -123,8 +126,6 @@ class Calendar extends Component {
 			}
 		});
 
-	// FIXME: 1. getFirstAndLastDate, 2. setCurCalendarDates, 3. applyRule, 4. applySelected
-
 	getFirstAndLastDate = () =>
 		new Promise((resolve, reject) => {
 			const { curDate } = this.state;
@@ -147,35 +148,24 @@ class Calendar extends Component {
 			const { firstDate, lastDate } = this.state;
 			let tempDate = new Date(firstDate);
 			let curCalendarDates = [];
-			let index = 0;
-			while (true) {
+			while (tempDate.getMonth() !== lastDate.getMonth() || tempDate.getDate() !== lastDate.getDate()) {
 				curCalendarDates = curCalendarDates.concat([
 					{
-						year: tempDate.getFullYear(),
-						month: tempDate.getMonth(),
-						date: tempDate.getDate(),
-						day: tempDate.getDay(),
+						date: tempDate,
 						className: [ 'date' ],
 						label: []
 					}
 				]);
-
 				tempDate = new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate() + 1);
-
-				if (tempDate.getMonth() === lastDate.getMonth() && tempDate.getDate() === lastDate.getDate()) {
-					curCalendarDates = curCalendarDates.concat([
-						{
-							year: tempDate.getFullYear(),
-							month: tempDate.getMonth(),
-							date: tempDate.getDate(),
-							day: tempDate.getDay(),
-							className: [ 'date' ],
-							label: []
-						}
-					]);
-					break;
-				}
 			}
+			curCalendarDates = curCalendarDates.concat([
+				{
+					date: tempDate,
+					className: [ 'date' ],
+					label: []
+				}
+			]);
+
 			this.setState({
 				curCalendarDates
 			});
@@ -187,85 +177,144 @@ class Calendar extends Component {
 			const { markings, firstDate, lastDate, curCalendarDates } = this.state;
 			for (let i = 0; i < markings.length; i += 1) {
 				const rule = markings[i];
+
 				if (rule.type === 'one-date') {
-					const year = Math.floor(rule.date.slice(0, 4));
-					const month = Math.floor(rule.date.slice(5, 7));
-					const date = Math.floor(rule.date.slice(8, 10));
-					const ruleDate = new Date(year, month - 1, date);
+					const ruleDate = new Date(
+						Math.floor(rule.date.slice(0, 4)),
+						Math.floor(rule.date.slice(5, 7)) - 1,
+						Math.floor(rule.date.slice(8, 10))
+					);
+
 					if (firstDate.getTime() <= ruleDate.getTime() && lastDate.getTime() >= ruleDate.getTime()) {
 						for (let j = 0; j < curCalendarDates.length; j += 1) {
-							if (curCalendarDates[j].month === month - 1 && curCalendarDates[j].date === date) {
+							if (curCalendarDates[j].date.getTime() === ruleDate.getTime()) {
 								curCalendarDates[j].className = curCalendarDates[j].className.concat(rule.className);
 								curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
 								break;
 							}
 						}
 					}
-				} else if (rule.type === 'date') {
+				} else if (rule.type === 'repetition-date') {
 					const date = Math.floor(rule.date);
-				} else if (rule.type === 'day') {
-					const { day } = rule;
+					for (let j = 0; j < curCalendarDates.length; j += 1) {
+						if (curCalendarDates[j].date.getDate() === date) {
+							curCalendarDates[j].className = curCalendarDates[j].className.concat(rule.className);
+							curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+						}
+					}
+				} else if (rule.type === 'repetition-day') {
+					const day = Math.floor(rule.day);
+					let index = 0;
+					for (let j = 0; j < curCalendarDates.length; j += 1) {
+						if (curCalendarDates[j].date.getDay() === day) {
+							index = j;
+							break;
+						}
+					}
+
+					for (let j = index; j < curCalendarDates.length; j += 7) {
+						curCalendarDates[j].className = curCalendarDates[j].className.concat(rule.className);
+						curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+					}
 				} else if (rule.type === 'period') {
-					const startYear = Math.floor(rule.startDate.slice(0, 4));
-					const startMonth = Math.floor(rule.startDate.slice(5, 7));
-					const startDate = Math.floor(rule.startDate.slice(8, 10));
-					const startDateObject = new Date(startYear, startMonth, startDate);
-					const endYear = Math.floor(rule.endDate.slice(0, 4));
-					const endMonth = Math.floor(rule.endDate.slice(5, 7));
-					const endDate = Math.floor(rule.endDate.slice(8, 10));
-					const endDateObject = new Date(endYear, endMonth, endDate);
+					let startDate = new Date(
+						Math.floor(rule.startDate.slice(0, 4)),
+						Math.floor(rule.startDate.slice(5, 7)) - 1,
+						Math.floor(rule.startDate.slice(8, 10))
+					);
+
+					let endDate = new Date(
+						Math.floor(rule.endDate.slice(0, 4)),
+						Math.floor(rule.endDate.slice(5, 7)) - 1,
+						Math.floor(rule.endDate.slice(8, 10))
+					);
+					if (startDate.getTime() > lastDate.getTime() || endDate.getTime() < firstDate.getTime()) {
+						continue;
+					}
+					if (startDate.getTime() < firstDate.getTime()) {
+						startDate = firstDate;
+					}
+					if (endDate.getTime() > lastDate.getTime()) {
+						endDate = lastDate;
+					}
+
+					for (let j = 0; j < curCalendarDates.length; j += 1) {
+						if (curCalendarDates[j].date.getTime() > endDate.getTime()) break;
+						if (curCalendarDates[j].date.getTime() >= startDate.getTime()) {
+							curCalendarDates[j].className = curCalendarDates[j].className.concat(rule.className);
+							curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+						}
+					}
 				} else if (rule.type === 'period-date') {
+					let startDate = new Date(
+						Math.floor(rule.startDate.slice(0, 4)),
+						Math.floor(rule.startDate.slice(5, 7)) - 1,
+						Math.floor(rule.startDate.slice(8, 10))
+					);
+					let endDate = new Date(
+						Math.floor(rule.endDate.slice(0, 4)),
+						Math.floor(rule.endDate.slice(5, 7)) - 1,
+						Math.floor(rule.endDate.slice(8, 10))
+					);
+					if (startDate.getTime() > lastDate.getTime() || endDate.getTime() < firstDate.getTime()) {
+						continue;
+					}
+					if (startDate.getTime() < firstDate.getTime()) {
+						startDate = firstDate;
+					}
+					if (endDate.getTime() > lastDate.getTime()) {
+						endDate = lastDate;
+					}
+
+					const date = Math.floor(rule.date);
+					for (let j = 0; j < curCalendarDates.length; j += 1) {
+						if (curCalendarDates[j].date.getTime() > endDate.getTime()) break;
+						if (curCalendarDates[j].date.getTime() >= startDate.getTime()) {
+							if (curCalendarDates[j].date.getDate() === date) {
+								curCalendarDates[j].className = curCalendarDates[j].className.concat(rule.className);
+								curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+							}
+						}
+					}
 				} else if (rule.type === 'period-day') {
+					let startDate = new Date(
+						Math.floor(rule.startDate.slice(0, 4)),
+						Math.floor(rule.startDate.slice(5, 7)) - 1,
+						Math.floor(rule.startDate.slice(8, 10))
+					);
+
+					let endDate = new Date(
+						Math.floor(rule.endDate.slice(0, 4)),
+						Math.floor(rule.endDate.slice(5, 7)) - 1,
+						Math.floor(rule.endDate.slice(8, 10))
+					);
+					if (startDate.getTime() > lastDate.getTime() || endDate.getTime() < firstDate.getTime()) {
+						continue;
+					}
+					if (startDate.getTime() < firstDate.getTime()) {
+						startDate = firstDate;
+					}
+					if (endDate.getTime() > lastDate.getTime()) {
+						endDate = lastDate;
+					}
+					const day = Math.floor(rule.day);
+					for (let j = 0; j < curCalendarDates.length; j += 1) {
+						if (curCalendarDates[j].date.getTime() > endDate.getTime()) break;
+						if (curCalendarDates[j].date.getTime() >= startDate.getTime()) {
+							if (curCalendarDates[j].date.getDay() === day) {
+								curCalendarDates[j].className = curCalendarDates[j].className.concat(rule.className);
+								curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+							}
+						}
+					}
 				}
 			}
 			resolve(true);
 		});
 
-	// TODO: DELETE
-	// setCurCalendar = () =>
-	// 	new Promise((resolve, reject) => {
-	// 		const { curDate } = this.state;
-	// 		const curYear = curDate.getFullYear();
-	// 		const curMonth = curDate.getMonth();
-	// 		const beforeFirstDate = new Date(curYear, curMonth, 0);
-	// 		const firstDate = new Date(curYear, curMonth, 1);
-	// 		const lastDate = new Date(curYear, curMonth + 1, 0);
-	// 		let curCalendar = [];
-	// 		let offset = firstDate.getDay();
-	// 		while (offset) {
-	// 			offset -= 1;
-	// 			curCalendar = curCalendar.concat([ `<td>${beforeFirstDate.getDate() - offset}</td>` ]);
-	// 		}
-
-	// 		while (offset < lastDate.getDate()) {
-	// 			curCalendar = curCalendar.concat([ `<td>${firstDate.getDate() + offset}</td>` ]);
-	// 			offset += 1;
-	// 		}
-	// 		offset = lastDate.getDay();
-	// 		let offset2 = 1;
-	// 		while (offset < 6) {
-	// 			curCalendar = curCalendar.concat([ `<td>${offset2}</td>` ]);
-	// 			offset2 += 1;
-	// 			offset += 1;
-	// 		}
-	// 		const trNum = Math.floor(curCalendar.length / 7);
-	// 		let table = '<tr><td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td></tr>';
-	// 		for (let i = 0; i < trNum; i += 1) {
-	// 			table += '<tr>';
-	// 			for (let j = 0; j < 7; j += 1) {
-	// 				table += curCalendar[i * 7 + j];
-	// 			}
-	// 			table += '</tr>';
-	// 		}
-
-	// 		this.setState({
-	// 			curCalendar: table
-	// 		});
-	// 		resolve(true);
-	// 	});
-
 	render() {
-		const { isLoading, curDate } = this.state;
+		const { isLoading, curDate, curCalendarDates } = this.state;
+		console.log(curCalendarDates);
 		return (
 			<div className="Calendar">
 				<button type="button" id="toggleCalendar" onClick={this.toggleIsActive}>
