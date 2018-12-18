@@ -18,26 +18,31 @@ class App extends Component {
 	initCalendarState = () => ({
 		mode: 'one',
 		markings: [
-			{ rule: 'date', date: '2018/12/16', label: '생일', color: '#00ffff' },
+			// 특정 날 one-date, 특정 일date, 특정 요일day, 기간 period, 기간 내 일 period-date, 기간 내 요일 period-day
+			{ type: 'one-date', date: '2019/01/05', label: '생일', className: [ 'my-birthday' ] },
+			{ type: 'date', date: '05', label: '생일 일', className: [ 'my-birthday-day' ] },
+			{ type: 'day', day: 'MON', label: '월요병', className: [ 'monday-disease' ] },
+			{ type: 'period', startDate: '2018/02/01', endData: '2018/03/01', label: '기간', className: [ 'period' ] },
 			{
-				rule: 'period',
-				start: '2018/12/20',
-				end: '2018/12/25',
-				label: '휴가',
-				color: '#ff0000'
+				type: 'period-date',
+				startDate: '2018/03/02',
+				endData: '2018/06/30',
+				date: '05',
+				label: '생일일',
+				className: [ 'period-birthday' ]
 			},
 			{
-				rule: 'day',
-				start: '2019/01/01',
-				end: '2019/01/30',
-				day: 'MON',
-				label: '월요병',
-				color: '#ff00ff'
+				type: 'period-day',
+				startDate: '2018/07/01',
+				endData: '2018/10/01',
+				day: 'WED',
+				label: '수요 데이',
+				className: [ 'period-wed' ]
 			}
 		]
 	});
 
-	getDates = returnDates => {
+	getDates = (returnDates) => {
 		this.setState({ dates: returnDates });
 	};
 
@@ -45,12 +50,7 @@ class App extends Component {
 		const { mode, markings, dates } = this.state;
 		return (
 			<div className="App">
-				<Calendar
-					mode={mode}
-					markings={markings}
-					getDates={this.getDates}
-					isActive={false}
-				/>
+				<Calendar mode={mode} markings={markings} getDates={this.getDates} isActive={false} />
 				<div>{dates}</div>
 			</div>
 		);

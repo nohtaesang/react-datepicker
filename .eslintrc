@@ -33,6 +33,7 @@
     "jsx-a11y/no-static-element-interactions": 0,
     "no-tabs": 0,
     "no-mixed-spaces-and-tabs": 0,
+    "implicit-arrow-linebreak":0,
 
     "indent": ["error", "tab", { "SwitchCase": 1 }],
     "react/jsx-indent": ["error", 0],
