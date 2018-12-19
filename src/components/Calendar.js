@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
+
 // TODO:
-// YYYY/MM/DD 형식을 date로 반환하는 함수 만들기
-// date객체를 인자로 받아 크기를 비교하는 함수 만들기
+// TODO: YYYY/MM/DD 형식을 date로 반환하는 함수 만들기
+// TODO: date객체를 인자로 받아 크기를 비교하는 함수 만들기
+// FIXME: 우선순위
+// TODO:
+// 1. Calendara render 하기 (년, 월, 버튼, 날짜)
+// 2. 기본 라인 CSS 형성하기
+// 3. clickDate 구현하기. mode에 따라서 다르게 작동
+// 3-1: one: 클릭 시 한개의 값만 유지 (클래스 네임, 라벨)
+// 3-2: 이상: 클릭 시 배열에서 검색 후 추가, 삭제 (클래스 네임, 라벨(배열로 받아올 시, 인덱스 순서대로. 배열 초과시 기본 값으로(무엇을 기본값으로 할까?)))
+// 3-3: period: 클릭은 1~2. 시작과 끝. 다시 선택하면 시작부터 (클래스 네임(시작, 중간, 끝), 라벨(시작, 끝))
 
 class Calendar extends Component {
 	constructor() {
@@ -82,7 +91,7 @@ class Calendar extends Component {
 		});
 
 	// mode 바꾸기
-	changeMode = (mode) =>
+	changeMode = mode =>
 		new Promise((resolve, reject) => {
 			this.setState({
 				mode
@@ -91,7 +100,7 @@ class Calendar extends Component {
 		});
 
 	// TODO: date 클릭. MODE에 따른 분기 필요
-	clickDate = async (e) => {
+	clickDate = async e => {
 		console.log(e.target.name);
 	};
 
@@ -100,9 +109,17 @@ class Calendar extends Component {
 		const { curDate } = this.state;
 		let newDate = null;
 		if (type === 'year') {
-			newDate = new Date(curDate.getFullYear() + value, curDate.getMonth(), curDate.getDate());
+			newDate = new Date(
+				curDate.getFullYear() + value,
+				curDate.getMonth(),
+				curDate.getDate()
+			);
 		} else {
-			newDate = new Date(curDate.getFullYear(), curDate.getMonth() + value, curDate.getDate());
+			newDate = new Date(
+				curDate.getFullYear(),
+				curDate.getMonth() + value,
+				curDate.getDate()
+			);
 		}
 
 		await this.changeDate(newDate);
@@ -111,8 +128,15 @@ class Calendar extends Component {
 		await this.applyRules();
 	};
 
+	clickResetCurDate = async () => {
+		await this.resetCurDate();
+		await this.getFirstAndLastDate();
+		await this.setCurCalendarDates();
+		await this.applyRules();
+	};
+
 	// curDate를 바꿈
-	changeDate = (newDate) =>
+	changeDate = newDate =>
 		new Promise((resolve, reject) => {
 			if (!this.isChangingDate) {
 				this.setState({
@@ -145,26 +169,55 @@ class Calendar extends Component {
 
 	setCurCalendarDates = () =>
 		new Promise((resolve, reject) => {
-			const { firstDate, lastDate } = this.state;
+			const { curDate, firstDate, lastDate } = this.state;
+			const curMonth = curDate.getMonth();
 			let tempDate = new Date(firstDate);
 			let curCalendarDates = [];
-			while (tempDate.getMonth() !== lastDate.getMonth() || tempDate.getDate() !== lastDate.getDate()) {
+			while (
+				tempDate.getMonth() !== lastDate.getMonth()
+				|| tempDate.getDate() !== lastDate.getDate()
+			) {
+				if (curMonth === tempDate.getMonth()) {
+					curCalendarDates = curCalendarDates.concat([
+						{
+							date: tempDate,
+							className: ['date'],
+							label: []
+						}
+					]);
+				} else {
+					curCalendarDates = curCalendarDates.concat([
+						{
+							date: tempDate,
+							className: ['date nonThisMonth'],
+							label: []
+						}
+					]);
+				}
+
+				tempDate = new Date(
+					tempDate.getFullYear(),
+					tempDate.getMonth(),
+					tempDate.getDate() + 1
+				);
+			}
+			if (curMonth === tempDate.getMonth()) {
 				curCalendarDates = curCalendarDates.concat([
 					{
 						date: tempDate,
-						className: [ 'date' ],
+						className: ['date'],
 						label: []
 					}
 				]);
-				tempDate = new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate() + 1);
+			} else {
+				curCalendarDates = curCalendarDates.concat([
+					{
+						date: tempDate,
+						className: ['date nonThisMonth'],
+						label: []
+					}
+				]);
 			}
-			curCalendarDates = curCalendarDates.concat([
-				{
-					date: tempDate,
-					className: [ 'date' ],
-					label: []
-				}
-			]);
 
 			this.setState({
 				curCalendarDates
@@ -185,11 +238,18 @@ class Calendar extends Component {
 						Math.floor(rule.date.slice(8, 10))
 					);
 
-					if (firstDate.getTime() <= ruleDate.getTime() && lastDate.getTime() >= ruleDate.getTime()) {
+					if (
+						firstDate.getTime() <= ruleDate.getTime()
+						&& lastDate.getTime() >= ruleDate.getTime()
+					) {
 						for (let j = 0; j < curCalendarDates.length; j += 1) {
 							if (curCalendarDates[j].date.getTime() === ruleDate.getTime()) {
-								curCalendarDates[j].className = curCalendarDates[j].className.concat(rule.className);
-								curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+								curCalendarDates[j].className = curCalendarDates[
+									j
+								].className.concat(rule.className);
+								curCalendarDates[j].label = curCalendarDates[j].label.concat(
+									rule.label
+								);
 								break;
 							}
 						}
@@ -198,8 +258,12 @@ class Calendar extends Component {
 					const date = Math.floor(rule.date);
 					for (let j = 0; j < curCalendarDates.length; j += 1) {
 						if (curCalendarDates[j].date.getDate() === date) {
-							curCalendarDates[j].className = curCalendarDates[j].className.concat(rule.className);
-							curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+							curCalendarDates[j].className = curCalendarDates[
+								j
+							].className.concat(rule.className);
+							curCalendarDates[j].label = curCalendarDates[j].label.concat(
+								rule.label
+							);
 						}
 					}
 				} else if (rule.type === 'repetition-day') {
@@ -213,8 +277,12 @@ class Calendar extends Component {
 					}
 
 					for (let j = index; j < curCalendarDates.length; j += 7) {
-						curCalendarDates[j].className = curCalendarDates[j].className.concat(rule.className);
-						curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+						curCalendarDates[j].className = curCalendarDates[
+							j
+						].className.concat(rule.className);
+						curCalendarDates[j].label = curCalendarDates[j].label.concat(
+							rule.label
+						);
 					}
 				} else if (rule.type === 'period') {
 					let startDate = new Date(
@@ -228,7 +296,10 @@ class Calendar extends Component {
 						Math.floor(rule.endDate.slice(5, 7)) - 1,
 						Math.floor(rule.endDate.slice(8, 10))
 					);
-					if (startDate.getTime() > lastDate.getTime() || endDate.getTime() < firstDate.getTime()) {
+					if (
+						startDate.getTime() > lastDate.getTime()
+						|| endDate.getTime() < firstDate.getTime()
+					) {
 						continue;
 					}
 					if (startDate.getTime() < firstDate.getTime()) {
@@ -241,8 +312,12 @@ class Calendar extends Component {
 					for (let j = 0; j < curCalendarDates.length; j += 1) {
 						if (curCalendarDates[j].date.getTime() > endDate.getTime()) break;
 						if (curCalendarDates[j].date.getTime() >= startDate.getTime()) {
-							curCalendarDates[j].className = curCalendarDates[j].className.concat(rule.className);
-							curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+							curCalendarDates[j].className = curCalendarDates[
+								j
+							].className.concat(rule.className);
+							curCalendarDates[j].label = curCalendarDates[j].label.concat(
+								rule.label
+							);
 						}
 					}
 				} else if (rule.type === 'period-date') {
@@ -256,7 +331,10 @@ class Calendar extends Component {
 						Math.floor(rule.endDate.slice(5, 7)) - 1,
 						Math.floor(rule.endDate.slice(8, 10))
 					);
-					if (startDate.getTime() > lastDate.getTime() || endDate.getTime() < firstDate.getTime()) {
+					if (
+						startDate.getTime() > lastDate.getTime()
+						|| endDate.getTime() < firstDate.getTime()
+					) {
 						continue;
 					}
 					if (startDate.getTime() < firstDate.getTime()) {
@@ -271,8 +349,12 @@ class Calendar extends Component {
 						if (curCalendarDates[j].date.getTime() > endDate.getTime()) break;
 						if (curCalendarDates[j].date.getTime() >= startDate.getTime()) {
 							if (curCalendarDates[j].date.getDate() === date) {
-								curCalendarDates[j].className = curCalendarDates[j].className.concat(rule.className);
-								curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+								curCalendarDates[j].className = curCalendarDates[
+									j
+								].className.concat(rule.className);
+								curCalendarDates[j].label = curCalendarDates[j].label.concat(
+									rule.label
+								);
 							}
 						}
 					}
@@ -288,7 +370,10 @@ class Calendar extends Component {
 						Math.floor(rule.endDate.slice(5, 7)) - 1,
 						Math.floor(rule.endDate.slice(8, 10))
 					);
-					if (startDate.getTime() > lastDate.getTime() || endDate.getTime() < firstDate.getTime()) {
+					if (
+						startDate.getTime() > lastDate.getTime()
+						|| endDate.getTime() < firstDate.getTime()
+					) {
 						continue;
 					}
 					if (startDate.getTime() < firstDate.getTime()) {
@@ -302,8 +387,12 @@ class Calendar extends Component {
 						if (curCalendarDates[j].date.getTime() > endDate.getTime()) break;
 						if (curCalendarDates[j].date.getTime() >= startDate.getTime()) {
 							if (curCalendarDates[j].date.getDay() === day) {
-								curCalendarDates[j].className = curCalendarDates[j].className.concat(rule.className);
-								curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+								curCalendarDates[j].className = curCalendarDates[
+									j
+								].className.concat(rule.className);
+								curCalendarDates[j].label = curCalendarDates[j].label.concat(
+									rule.label
+								);
 							}
 						}
 					}
@@ -314,36 +403,83 @@ class Calendar extends Component {
 
 	render() {
 		const { isLoading, curDate, curCalendarDates } = this.state;
-		console.log(curCalendarDates);
+		const rowNum = new Array(curCalendarDates.length / 7).fill(null);
+		console.log(rowNum);
 		return (
-			<div className="Calendar">
-				<button type="button" id="toggleCalendar" onClick={this.toggleIsActive}>
-					{'toggleCalendar'}
-				</button>
-				<button type="button" id="resetSelectedDates" onClick={this.resetSelectedDates}>
-					{'resetSelectedDates'}
-				</button>
-				<div id="Calendar">
-					<button type="button" id="prevCurYear" onClick={() => this.clickChangeDate('year', -1)}>
-						{'prevCurYear'}
+			<div className="nohCalendar">
+				<div className="yearAndMonth">
+					<button
+						type="button"
+						id="prevCurYear"
+						onClick={() => this.clickChangeDate('year', -1)}
+					>
+						{'<'}
 					</button>
-					<p>{curDate.getFullYear()}</p>
-					<button type="button" id="nextCurYear" onClick={() => this.clickChangeDate('year', 1)}>
-						{'nextCurYear'}
+					<div>{curDate.getFullYear()}</div>
+					<button
+						type="button"
+						id="nextCurYear"
+						onClick={() => this.clickChangeDate('year', 1)}
+					>
+						{'>'}
 					</button>
-					<button type="button" id="prevCurMonth" onClick={() => this.clickChangeDate('month', -1)}>
-						{'prevCurMonth'}
+					<button
+						type="button"
+						id="prevCurMonth"
+						onClick={() => this.clickChangeDate('month', -1)}
+					>
+						{'<'}
 					</button>
-					<p>{curDate.getMonth() + 1}</p>
-					<button type="button" id="nextCurMonth" onClick={() => this.clickChangeDate('month', 1)}>
-						{'nextCurMonth'}
+					<div>{curDate.getMonth() + 1}</div>
+					<button
+						type="button"
+						id="nextCurMonth"
+						onClick={() => this.clickChangeDate('month', 1)}
+					>
+						{'>'}
 					</button>
-					<button type="button" id="resetCurDate" onClick={this.resetCurDate}>
+				</div>
+				<div className="calendar">
+					<table>
+						<tbody>
+							<tr>
+								<td>SUN</td>
+								<td>MON</td>
+								<td>TUE</td>
+								<td>WED</td>
+								<td>THU</td>
+								<td>FRI</td>
+								<td>SAT</td>
+							</tr>
+							{rowNum.map((a, i) => (
+								<tr key={i}>
+									<td>{curCalendarDates[i * 7].date.getDate()}</td>
+									<td>{curCalendarDates[i * 7 + 1].date.getDate()}</td>
+									<td>{curCalendarDates[i * 7 + 2].date.getDate()}</td>
+									<td>{curCalendarDates[i * 7 + 3].date.getDate()}</td>
+									<td>{curCalendarDates[i * 7 + 4].date.getDate()}</td>
+									<td>{curCalendarDates[i * 7 + 5].date.getDate()}</td>
+									<td>{curCalendarDates[i * 7 + 6].date.getDate()}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+					{/* {isLoading ? <table dangerouslySetInnerHTML={{ __html: curCalendar }} /> : null} */}
+				</div>
+				<div className="option">
+					<button
+						type="button"
+						id="resetCurDate"
+						onClick={this.clickResetCurDate}
+					>
 						{'resetCurDate'}
 					</button>
-					{/* {isLoading ? <table dangerouslySetInnerHTML={{ __html: curCalendar }} /> : null} */}
 
-					<button type="button" id="returnSelectedDates" onClick={this.returnSelectedDates}>
+					<button
+						type="button"
+						id="returnSelectedDates"
+						onClick={this.returnSelectedDates}
+					>
 						{'returnSelectedDates'}
 					</button>
 				</div>
