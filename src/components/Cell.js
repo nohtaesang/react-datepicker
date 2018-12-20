@@ -5,11 +5,18 @@ class Cell extends Component {
 		super();
 	}
 
+	// CLICK
+	clickDate = () =>
+		new Promise((resolve, reject) => {
+			this.props.getCurSelectedDateIndex(this.props.index);
+			resolve(true);
+		});
+
 	render() {
 		const { date, className, label } = this.props.info;
-		console.log(className);
+		const { index } = this.props;
 		return (
-			<td className="date">
+			<td className="date" name={index} onClick={() => this.clickDate(index)}>
 				<div className={className.join(' ')}>{date.getDate()}</div>
 				{label.map((l, i) => (
 					<div className="label" key={i}>

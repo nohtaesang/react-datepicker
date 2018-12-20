@@ -92,6 +92,10 @@
   font-size: 8px;
 }
 
+.nohCalendar .calendar td .selected {
+  background: red;
+}
+
 /* option */
 
 .nohCalendar .option {

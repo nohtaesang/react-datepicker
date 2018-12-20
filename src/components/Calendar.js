@@ -25,7 +25,8 @@ class Calendar extends Component {
 			firstDate: '',
 			lastDate: '',
 			curCalendarDates: [],
-			isChangingDate: false
+			isChangingDate: false,
+			curSelectedDateIndex: null
 		};
 	}
 
@@ -65,19 +66,19 @@ class Calendar extends Component {
 			resolve(true);
 		});
 
-	// selectedDates를 부모 컴포넌트로 리턴하기
-	returnSelectedDates = () =>
-		new Promise((resolve, reject) => {
-			this.props.getDates(this.state);
-			resolve(true);
-		});
-
 	// selectedDates 초기화 하기
 	resetSelectedDates = () =>
 		new Promise((resolve, reject) => {
 			this.setState({
 				selectedDates: []
 			});
+		});
+
+	// selectedDates를 부모 컴포넌트로 리턴하기
+	returnSelectedDates = () =>
+		new Promise((resolve, reject) => {
+			this.props.getDates(this.state);
+			resolve(true);
 		});
 
 	// isActive 상태 바꾸기
@@ -367,7 +368,47 @@ class Calendar extends Component {
 
 	// CLICK
 	clickDate = async e => {
-		console.log(e.target.name);
+		console.log(e.target);
+	};
+
+	getCurSelectedDateIndex = async index => {
+		const {
+			mode,
+			selectedDates,
+			curCalendarDates,
+			curSelectedDateIndex
+		} = this.state;
+
+		if (mode.type === 'one') {
+			if (curSelectedDateIndex === null) {
+				// 선택된 date가 없을 경우
+				this.setState({ curSelectedDateIndex: index });
+				curCalendarDates[index].className = curCalendarDates[
+					index
+				].className.concat(mode.className);
+			} else if (curSelectedDateIndex === index) {
+				// 선택한 date가 이미 선택된 date 일 경우
+				curCalendarDates[index].className.splice(
+					curCalendarDates[index].className.indexOf(mode.className[0]),
+					1
+				);
+				this.setState({ curSelectedDateIndex: null });
+			} else {
+				// 선택한 date가 이미 선택된 date와 다를 경우
+				curCalendarDates[curSelectedDateIndex].className.splice(
+					curCalendarDates[curSelectedDateIndex].className.indexOf(
+						mode.className[0]
+					),
+					1
+				);
+
+				curCalendarDates[index].className = curCalendarDates[
+					index
+				].className.concat(mode.className);
+				this.setState({ curSelectedDateIndex: index });
+			}
+		}
+		console.log(curCalendarDates[index].className);
 	};
 
 	// curDate를 바꾸는 이벤트 (year, month)
@@ -408,26 +449,17 @@ class Calendar extends Component {
 	};
 
 	render() {
-		const { isLoading, curDate, curCalendarDates } = this.state;
+		const {
+			isLoading,
+			curDate,
+			curCalendarDates,
+			curSelectedDateIndex
+		} = this.state;
 		const rowNum = new Array(curCalendarDates.length / 7).fill(null);
+
 		return (
 			<div className="nohCalendar">
 				<div className="yearAndMonth">
-					{/* <button
-						type="button"
-						id="prevCurYear"
-						onClick={() => this.clickChangeDate('year', -1)}
-					>
-						{'<'}
-					</button>
-					<div>{curDate.getFullYear()}</div>
-					<button
-						type="button"
-						id="nextCurYear"
-						onClick={() => this.clickChangeDate('year', 1)}
-					>
-						{'>'}
-					</button> */}
 					<button
 						type="button"
 						id="prevCurMonth"
@@ -435,7 +467,7 @@ class Calendar extends Component {
 					>
 						{'<'}
 					</button>
-					<div>{ curDate.getFullYear() +' / '+ (curDate.getMonth() + 1)}</div>
+					<div>{`${curDate.getFullYear()} /  ${curDate.getMonth()}`}</div>
 					<button
 						type="button"
 						id="nextCurMonth"
@@ -458,18 +490,45 @@ class Calendar extends Component {
 							</tr>
 							{rowNum.map((a, i) => (
 								<tr key={i}>
-									<Cell info={curCalendarDates[i * 7]} />
-									<Cell info={curCalendarDates[i * 7 + 1]} />
-									<Cell info={curCalendarDates[i * 7 + 2]} />
-									<Cell info={curCalendarDates[i * 7 + 3]} />
-									<Cell info={curCalendarDates[i * 7 + 4]} />
-									<Cell info={curCalendarDates[i * 7 + 5]} />
-									<Cell info={curCalendarDates[i * 7 + 6]} />
+									<Cell
+										info={curCalendarDates[i * 7]}
+										index={i * 7}
+										getCurSelectedDateIndex={this.getCurSelectedDateIndex}
+									/>
+									<Cell
+										info={curCalendarDates[i * 7 + 1]}
+										index={i * 7 + 1}
+										getCurSelectedDateIndex={this.getCurSelectedDateIndex}
+									/>
+									<Cell
+										info={curCalendarDates[i * 7 + 2]}
+										index={i * 7 + 2}
+										getCurSelectedDateIndex={this.getCurSelectedDateIndex}
+									/>
+									<Cell
+										info={curCalendarDates[i * 7 + 3]}
+										index={i * 7 + 3}
+										getCurSelectedDateIndex={this.getCurSelectedDateIndex}
+									/>
+									<Cell
+										info={curCalendarDates[i * 7 + 4]}
+										index={i * 7 + 4}
+										getCurSelectedDateIndex={this.getCurSelectedDateIndex}
+									/>
+									<Cell
+										info={curCalendarDates[i * 7 + 5]}
+										index={i * 7 + 5}
+										getCurSelectedDateIndex={this.getCurSelectedDateIndex}
+									/>
+									<Cell
+										info={curCalendarDates[i * 7 + 6]}
+										index={i * 7 + 6}
+										getCurSelectedDateIndex={this.getCurSelectedDateIndex}
+									/>
 								</tr>
 							))}
 						</tbody>
 					</table>
-					{/* {isLoading ? <table dangerouslySetInnerHTML={{ __html: curCalendar }} /> : null} */}
 				</div>
 				<div className="option">
 					<button

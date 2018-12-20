@@ -42,7 +42,7 @@ class App extends Component {
 				type: 'period',
 				startDate: '2018/02/01',
 				endDate: '2018/03/01',
-				label: ['중간 고사'],
+				label: ['중간고사'],
 				className: ['hell']
 			},
 			{
@@ -58,7 +58,7 @@ class App extends Component {
 				startDate: '2018/07/01',
 				endDate: '2018/10/01',
 				day: '3',
-				label: ['수요 데이'],
+				label: ['수요일'],
 				className: ['period-wed']
 			}
 		]
