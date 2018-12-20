@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Cell from './Cell';
 // TODO:
 // TODO: YYYY/MM/DD 형식을 date로 반환하는 함수 만들기
 // TODO: date객체를 인자로 받아 크기를 비교하는 함수 만들기
@@ -99,42 +99,6 @@ class Calendar extends Component {
 			resolve(true);
 		});
 
-	// TODO: date 클릭. MODE에 따른 분기 필요
-	clickDate = async e => {
-		console.log(e.target.name);
-	};
-
-	// curDate를 바꾸는 이벤트 (year, month)
-	clickChangeDate = async (type, value) => {
-		const { curDate } = this.state;
-		let newDate = null;
-		if (type === 'year') {
-			newDate = new Date(
-				curDate.getFullYear() + value,
-				curDate.getMonth(),
-				curDate.getDate()
-			);
-		} else {
-			newDate = new Date(
-				curDate.getFullYear(),
-				curDate.getMonth() + value,
-				curDate.getDate()
-			);
-		}
-
-		await this.changeDate(newDate);
-		await this.getFirstAndLastDate();
-		await this.setCurCalendarDates();
-		await this.applyRules();
-	};
-
-	clickResetCurDate = async () => {
-		await this.resetCurDate();
-		await this.getFirstAndLastDate();
-		await this.setCurCalendarDates();
-		await this.applyRules();
-	};
-
 	// curDate를 바꿈
 	changeDate = newDate =>
 		new Promise((resolve, reject) => {
@@ -189,7 +153,7 @@ class Calendar extends Component {
 					curCalendarDates = curCalendarDates.concat([
 						{
 							date: tempDate,
-							className: ['date nonThisMonth'],
+							className: ['date', 'nonThisMonth'],
 							label: []
 						}
 					]);
@@ -213,12 +177,11 @@ class Calendar extends Component {
 				curCalendarDates = curCalendarDates.concat([
 					{
 						date: tempDate,
-						className: ['date nonThisMonth'],
+						className: ['date', 'nonThisMonth'],
 						label: []
 					}
 				]);
 			}
-
 			this.setState({
 				curCalendarDates
 			});
@@ -250,6 +213,7 @@ class Calendar extends Component {
 								curCalendarDates[j].label = curCalendarDates[j].label.concat(
 									rule.label
 								);
+
 								break;
 							}
 						}
@@ -401,14 +365,55 @@ class Calendar extends Component {
 			resolve(true);
 		});
 
+	// CLICK
+	clickDate = async e => {
+		console.log(e.target.name);
+	};
+
+	// curDate를 바꾸는 이벤트 (year, month)
+	clickChangeDate = async (type, value) => {
+		if (!this.state.isLoading) {
+			return;
+		}
+		this.setState({ isLoading: false });
+		const { curDate } = this.state;
+		let newDate = null;
+		if (type === 'year') {
+			newDate = new Date(
+				curDate.getFullYear() + value,
+				curDate.getMonth(),
+				curDate.getDate()
+			);
+		} else {
+			newDate = new Date(
+				curDate.getFullYear(),
+				curDate.getMonth() + value,
+				curDate.getDate()
+			);
+		}
+
+		await this.changeDate(newDate);
+		await this.getFirstAndLastDate();
+		await this.setCurCalendarDates();
+		await this.applyRules();
+
+		this.setState({ isLoading: true });
+	};
+
+	clickResetCurDate = async () => {
+		await this.resetCurDate();
+		await this.getFirstAndLastDate();
+		await this.setCurCalendarDates();
+		await this.applyRules();
+	};
+
 	render() {
 		const { isLoading, curDate, curCalendarDates } = this.state;
 		const rowNum = new Array(curCalendarDates.length / 7).fill(null);
-		console.log(rowNum);
 		return (
 			<div className="nohCalendar">
 				<div className="yearAndMonth">
-					<button
+					{/* <button
 						type="button"
 						id="prevCurYear"
 						onClick={() => this.clickChangeDate('year', -1)}
@@ -422,7 +427,7 @@ class Calendar extends Component {
 						onClick={() => this.clickChangeDate('year', 1)}
 					>
 						{'>'}
-					</button>
+					</button> */}
 					<button
 						type="button"
 						id="prevCurMonth"
@@ -430,7 +435,7 @@ class Calendar extends Component {
 					>
 						{'<'}
 					</button>
-					<div>{curDate.getMonth() + 1}</div>
+					<div>{ curDate.getFullYear() +' / '+ (curDate.getMonth() + 1)}</div>
 					<button
 						type="button"
 						id="nextCurMonth"
@@ -453,13 +458,13 @@ class Calendar extends Component {
 							</tr>
 							{rowNum.map((a, i) => (
 								<tr key={i}>
-									<td>{curCalendarDates[i * 7].date.getDate()}</td>
-									<td>{curCalendarDates[i * 7 + 1].date.getDate()}</td>
-									<td>{curCalendarDates[i * 7 + 2].date.getDate()}</td>
-									<td>{curCalendarDates[i * 7 + 3].date.getDate()}</td>
-									<td>{curCalendarDates[i * 7 + 4].date.getDate()}</td>
-									<td>{curCalendarDates[i * 7 + 5].date.getDate()}</td>
-									<td>{curCalendarDates[i * 7 + 6].date.getDate()}</td>
+									<Cell info={curCalendarDates[i * 7]} />
+									<Cell info={curCalendarDates[i * 7 + 1]} />
+									<Cell info={curCalendarDates[i * 7 + 2]} />
+									<Cell info={curCalendarDates[i * 7 + 3]} />
+									<Cell info={curCalendarDates[i * 7 + 4]} />
+									<Cell info={curCalendarDates[i * 7 + 5]} />
+									<Cell info={curCalendarDates[i * 7 + 6]} />
 								</tr>
 							))}
 						</tbody>
