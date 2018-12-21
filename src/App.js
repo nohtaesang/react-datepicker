@@ -17,54 +17,54 @@ class App extends Component {
 	}
 
 	initCalendarState = () => ({
-		mode: { type: 'one', label: ['selected'], className: ['selected'] },
+		mode: { type: 'one', label: '선택됨', tdClassName: 'selected' },
 		markings: [
-			// 특정 날 one-date, 특정 일date, 특정 요일day, 기간 period, 기간 내 일 period-date, 기간 내 요일 period-day
-			{
-				type: 'one-date',
-				date: '2019/01/05',
-				label: ['생일'],
-				className: ['one-date']
-			},
 			{
 				type: 'repetition-date',
-				date: '05',
-				label: ['5일'],
-				className: ['repetition-date']
+				date: '08/15',
+				dateClassName: 'date-red',
+				label: '광복절',
+				labelClassName: 'korea'
 			},
 			{
 				type: 'repetition-day',
 				day: '0',
-				label: null,
-				className: ['sunday']
+				dateClassName: 'date-red'
+			},
+			{
+				type: 'one-date',
+				date: '2019/01/05',
+				dateClassName: 'date-purple',
+				label: '생일',
+				labelClassName: 'my-birth-day'
 			},
 			{
 				type: 'period',
-				startDate: '2018/02/01',
-				endDate: '2018/03/01',
-				label: ['중간고사'],
-				className: ['hell']
+				startDate: '2018/11/29',
+				endDate: '2018/12/07',
+				label: '중간고사',
+				labelClassName: 'hell'
 			},
 			{
 				type: 'period-date',
-				startDate: '2018/03/02',
-				endDate: '2018/06/30',
+				startDate: '2018/10/01',
+				endDate: '2018/03/30',
 				date: '09',
-				label: ['period-date'],
-				className: ['period-date']
+				label: '9일',
+				labelClassName: 'nine'
 			},
 			{
 				type: 'period-day',
-				startDate: '2018/07/01',
-				endDate: '2018/10/01',
+				startDate: '2018/11/01',
+				endDate: '2018/2/30',
 				day: '3',
-				label: ['수요일'],
-				className: ['period-wed']
+				label: '수요일',
+				labelClassName: 'wed'
 			}
 		]
 	});
 
-	getDates = returnDates => {
+	getDates = (returnDates) => {
 		this.setState({ dates: returnDates });
 	};
 
@@ -72,12 +72,7 @@ class App extends Component {
 		const { mode, markings, dates } = this.state;
 		return (
 			<div className="App">
-				<Calendar
-					mode={mode}
-					markings={markings}
-					getDates={this.getDates}
-					isActive={false}
-				/>
+				<Calendar mode={mode} markings={markings} getDates={this.getDates} isActive={false} />
 				<div>{dates}</div>
 			</div>
 		);

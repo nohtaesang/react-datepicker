@@ -92,7 +92,7 @@ class Calendar extends Component {
 		});
 
 	// mode 바꾸기
-	changeMode = mode =>
+	changeMode = (mode) =>
 		new Promise((resolve, reject) => {
 			this.setState({
 				mode
@@ -101,7 +101,7 @@ class Calendar extends Component {
 		});
 
 	// curDate를 바꿈
-	changeDate = newDate =>
+	changeDate = (newDate) =>
 		new Promise((resolve, reject) => {
 			if (!this.isChangingDate) {
 				this.setState({
@@ -138,48 +138,49 @@ class Calendar extends Component {
 			const curMonth = curDate.getMonth();
 			let tempDate = new Date(firstDate);
 			let curCalendarDates = [];
-			while (
-				tempDate.getMonth() !== lastDate.getMonth()
-				|| tempDate.getDate() !== lastDate.getDate()
-			) {
+			while (tempDate.getMonth() !== lastDate.getMonth() || tempDate.getDate() !== lastDate.getDate()) {
 				if (curMonth === tempDate.getMonth()) {
 					curCalendarDates = curCalendarDates.concat([
 						{
 							date: tempDate,
-							className: ['date'],
-							label: []
+							tdClassName: [],
+							dateClassName: [ 'date' ],
+							label: [],
+							labelClassName: [ 'label' ]
 						}
 					]);
 				} else {
 					curCalendarDates = curCalendarDates.concat([
 						{
 							date: tempDate,
-							className: ['date', 'nonThisMonth'],
-							label: []
+							tdClassName: [ 'nonThisMonth' ],
+							dateClassName: [ 'date' ],
+							label: [],
+							labelClassName: [ 'label' ]
 						}
 					]);
 				}
 
-				tempDate = new Date(
-					tempDate.getFullYear(),
-					tempDate.getMonth(),
-					tempDate.getDate() + 1
-				);
+				tempDate = new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate() + 1);
 			}
 			if (curMonth === tempDate.getMonth()) {
 				curCalendarDates = curCalendarDates.concat([
 					{
 						date: tempDate,
-						className: ['date'],
-						label: []
+						tdClassName: [],
+						dateClassName: [ 'date' ],
+						label: [],
+						labelClassName: [ 'label' ]
 					}
 				]);
 			} else {
 				curCalendarDates = curCalendarDates.concat([
 					{
 						date: tempDate,
-						className: ['date', 'nonThisMonth'],
-						label: []
+						tdClassName: [ 'nonThisMonth' ],
+						dateClassName: [ 'date' ],
+						label: [],
+						labelClassName: [ 'label' ]
 					}
 				]);
 			}
@@ -202,32 +203,35 @@ class Calendar extends Component {
 						Math.floor(rule.date.slice(8, 10))
 					);
 
-					if (
-						firstDate.getTime() <= ruleDate.getTime()
-						&& lastDate.getTime() >= ruleDate.getTime()
-					) {
+					if (firstDate.getTime() <= ruleDate.getTime() && lastDate.getTime() >= ruleDate.getTime()) {
 						for (let j = 0; j < curCalendarDates.length; j += 1) {
 							if (curCalendarDates[j].date.getTime() === ruleDate.getTime()) {
-								curCalendarDates[j].className = curCalendarDates[
-									j
-								].className.concat(rule.className);
-								curCalendarDates[j].label = curCalendarDates[j].label.concat(
-									rule.label
-								);
-
+								curCalendarDates[j].dateClassName = curCalendarDates[j].dateClassName.concat([
+									rule.dateClassName
+								]);
+								curCalendarDates[j].label = curCalendarDates[j].label.concat([ rule.label ]);
+								curCalendarDates[j].labelClassName = curCalendarDates[j].labelClassName.concat([
+									rule.labelClassName
+								]);
 								break;
 							}
 						}
 					}
 				} else if (rule.type === 'repetition-date') {
-					const date = Math.floor(rule.date);
+					const month = Math.floor(rule.date.slice(0, 2) - 1);
+					const date = Math.floor(rule.date.slice(3, 5));
+
 					for (let j = 0; j < curCalendarDates.length; j += 1) {
-						if (curCalendarDates[j].date.getDate() === date) {
-							curCalendarDates[j].className = curCalendarDates[
-								j
-							].className.concat(rule.className);
-							curCalendarDates[j].label = curCalendarDates[j].label.concat(
-								rule.label
+						if (
+							curCalendarDates[j].date.getMonth() === month &&
+							curCalendarDates[j].date.getDate() === date
+						) {
+							curCalendarDates[j].dateClassName = curCalendarDates[j].dateClassName.concat(
+								rule.dateClassName
+							);
+							curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+							curCalendarDates[j].labelClassName = curCalendarDates[j].labelClassName.concat(
+								rule.labelClassName
 							);
 						}
 					}
@@ -242,11 +246,12 @@ class Calendar extends Component {
 					}
 
 					for (let j = index; j < curCalendarDates.length; j += 7) {
-						curCalendarDates[j].className = curCalendarDates[
-							j
-						].className.concat(rule.className);
-						curCalendarDates[j].label = curCalendarDates[j].label.concat(
-							rule.label
+						curCalendarDates[j].dateClassName = curCalendarDates[j].dateClassName.concat(
+							rule.dateClassName
+						);
+						curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+						curCalendarDates[j].labelClassName = curCalendarDates[j].labelClassName.concat(
+							rule.labelClassName
 						);
 					}
 				} else if (rule.type === 'period') {
@@ -261,10 +266,7 @@ class Calendar extends Component {
 						Math.floor(rule.endDate.slice(5, 7)) - 1,
 						Math.floor(rule.endDate.slice(8, 10))
 					);
-					if (
-						startDate.getTime() > lastDate.getTime()
-						|| endDate.getTime() < firstDate.getTime()
-					) {
+					if (startDate.getTime() > lastDate.getTime() || endDate.getTime() < firstDate.getTime()) {
 						continue;
 					}
 					if (startDate.getTime() < firstDate.getTime()) {
@@ -277,11 +279,12 @@ class Calendar extends Component {
 					for (let j = 0; j < curCalendarDates.length; j += 1) {
 						if (curCalendarDates[j].date.getTime() > endDate.getTime()) break;
 						if (curCalendarDates[j].date.getTime() >= startDate.getTime()) {
-							curCalendarDates[j].className = curCalendarDates[
-								j
-							].className.concat(rule.className);
-							curCalendarDates[j].label = curCalendarDates[j].label.concat(
-								rule.label
+							curCalendarDates[j].dateClassName = curCalendarDates[j].dateClassName.concat(
+								rule.dateClassName
+							);
+							curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+							curCalendarDates[j].labelClassName = curCalendarDates[j].labelClassName.concat(
+								rule.labelClassName
 							);
 						}
 					}
@@ -296,10 +299,7 @@ class Calendar extends Component {
 						Math.floor(rule.endDate.slice(5, 7)) - 1,
 						Math.floor(rule.endDate.slice(8, 10))
 					);
-					if (
-						startDate.getTime() > lastDate.getTime()
-						|| endDate.getTime() < firstDate.getTime()
-					) {
+					if (startDate.getTime() > lastDate.getTime() || endDate.getTime() < firstDate.getTime()) {
 						continue;
 					}
 					if (startDate.getTime() < firstDate.getTime()) {
@@ -314,11 +314,12 @@ class Calendar extends Component {
 						if (curCalendarDates[j].date.getTime() > endDate.getTime()) break;
 						if (curCalendarDates[j].date.getTime() >= startDate.getTime()) {
 							if (curCalendarDates[j].date.getDate() === date) {
-								curCalendarDates[j].className = curCalendarDates[
-									j
-								].className.concat(rule.className);
-								curCalendarDates[j].label = curCalendarDates[j].label.concat(
-									rule.label
+								curCalendarDates[j].dateClassName = curCalendarDates[j].dateClassName.concat(
+									rule.dateClassName
+								);
+								curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+								curCalendarDates[j].labelClassName = curCalendarDates[j].labelClassName.concat(
+									rule.labelClassName
 								);
 							}
 						}
@@ -335,10 +336,7 @@ class Calendar extends Component {
 						Math.floor(rule.endDate.slice(5, 7)) - 1,
 						Math.floor(rule.endDate.slice(8, 10))
 					);
-					if (
-						startDate.getTime() > lastDate.getTime()
-						|| endDate.getTime() < firstDate.getTime()
-					) {
+					if (startDate.getTime() > lastDate.getTime() || endDate.getTime() < firstDate.getTime()) {
 						continue;
 					}
 					if (startDate.getTime() < firstDate.getTime()) {
@@ -352,11 +350,12 @@ class Calendar extends Component {
 						if (curCalendarDates[j].date.getTime() > endDate.getTime()) break;
 						if (curCalendarDates[j].date.getTime() >= startDate.getTime()) {
 							if (curCalendarDates[j].date.getDay() === day) {
-								curCalendarDates[j].className = curCalendarDates[
-									j
-								].className.concat(rule.className);
-								curCalendarDates[j].label = curCalendarDates[j].label.concat(
-									rule.label
+								curCalendarDates[j].dateClassName = curCalendarDates[j].dateClassName.concat(
+									rule.dateClassName
+								);
+								curCalendarDates[j].label = curCalendarDates[j].label.concat(rule.label);
+								curCalendarDates[j].labelClassName = curCalendarDates[j].labelClassName.concat(
+									rule.labelClassName
 								);
 							}
 						}
@@ -366,49 +365,62 @@ class Calendar extends Component {
 			resolve(true);
 		});
 
-	// CLICK
-	clickDate = async e => {
-		console.log(e.target);
-	};
+	applySelectedDate = () =>
+		new Promise((resolve, reject) => {
+			const { mode, curCalendarDates, selectedDates } = this.state;
+			if (mode.type === 'one') {
+				if (selectedDates.length === 0) return;
 
-	getCurSelectedDateIndex = async index => {
-		const {
-			mode,
-			selectedDates,
-			curCalendarDates,
-			curSelectedDateIndex
-		} = this.state;
+				for (let i = 0; i < curCalendarDates.length; i += 1) {
+					if (curCalendarDates[i].date.getTime() === selectedDates[0].date.getTime()) {
+						curCalendarDates[i].tdClassName = curCalendarDates[i].tdClassName.concat(mode.tdClassName);
+						break;
+					}
+				}
+			}
+
+			resolve(true);
+		});
+
+	getCurSelectedDateIndex = async (index) => {
+		const { mode, selectedDates, curCalendarDates, curSelectedDateIndex } = this.state;
 
 		if (mode.type === 'one') {
-			if (curSelectedDateIndex === null) {
+			if (selectedDates.length === 0) {
 				// 선택된 date가 없을 경우
-				this.setState({ curSelectedDateIndex: index });
-				curCalendarDates[index].className = curCalendarDates[
-					index
-				].className.concat(mode.className);
-			} else if (curSelectedDateIndex === index) {
+				this.setState({
+					selectedDates: [ curCalendarDates[index] ]
+				});
+				curCalendarDates[index].tdClassName = curCalendarDates[index].tdClassName.concat(mode.tdClassName);
+			} else if (selectedDates[0].date.getTime() === curCalendarDates[index].date.getTime()) {
 				// 선택한 date가 이미 선택된 date 일 경우
-				curCalendarDates[index].className.splice(
-					curCalendarDates[index].className.indexOf(mode.className[0]),
+				curCalendarDates[index].tdClassName.splice(
+					curCalendarDates[index].tdClassName.indexOf(mode.tdClassName),
 					1
 				);
-				this.setState({ curSelectedDateIndex: null });
+				this.setState({
+					selectedDates: []
+				});
 			} else {
 				// 선택한 date가 이미 선택된 date와 다를 경우
-				curCalendarDates[curSelectedDateIndex].className.splice(
-					curCalendarDates[curSelectedDateIndex].className.indexOf(
-						mode.className[0]
-					),
-					1
-				);
+				for (let i = 0; i < curCalendarDates.length; i += 1) {
+					const beforeSelectedDateIndex = curCalendarDates[i].tdClassName.indexOf(mode.tdClassName);
+					if (beforeSelectedDateIndex !== -1) {
+						curCalendarDates[i].tdClassName.splice(
+							curCalendarDates[i].tdClassName.indexOf(mode.tdClassName),
+							1
+						);
+						break;
+					}
+				}
 
-				curCalendarDates[index].className = curCalendarDates[
-					index
-				].className.concat(mode.className);
-				this.setState({ curSelectedDateIndex: index });
+				curCalendarDates[index].tdClassName = curCalendarDates[index].tdClassName.concat(mode.tdClassName);
+
+				this.setState({
+					selectedDates: [ curCalendarDates[index] ]
+				});
 			}
 		}
-		console.log(curCalendarDates[index].className);
 	};
 
 	// curDate를 바꾸는 이벤트 (year, month)
@@ -420,23 +432,16 @@ class Calendar extends Component {
 		const { curDate } = this.state;
 		let newDate = null;
 		if (type === 'year') {
-			newDate = new Date(
-				curDate.getFullYear() + value,
-				curDate.getMonth(),
-				curDate.getDate()
-			);
+			newDate = new Date(curDate.getFullYear() + value, curDate.getMonth(), curDate.getDate());
 		} else {
-			newDate = new Date(
-				curDate.getFullYear(),
-				curDate.getMonth() + value,
-				curDate.getDate()
-			);
+			newDate = new Date(curDate.getFullYear(), curDate.getMonth() + value, curDate.getDate());
 		}
 
 		await this.changeDate(newDate);
 		await this.getFirstAndLastDate();
 		await this.setCurCalendarDates();
 		await this.applyRules();
+		await this.applySelectedDate();
 
 		this.setState({ isLoading: true });
 	};
@@ -449,30 +454,17 @@ class Calendar extends Component {
 	};
 
 	render() {
-		const {
-			isLoading,
-			curDate,
-			curCalendarDates,
-			curSelectedDateIndex
-		} = this.state;
+		const { isLoading, curDate, curCalendarDates, curSelectedDateIndex } = this.state;
 		const rowNum = new Array(curCalendarDates.length / 7).fill(null);
 
 		return (
 			<div className="nohCalendar">
 				<div className="yearAndMonth">
-					<button
-						type="button"
-						id="prevCurMonth"
-						onClick={() => this.clickChangeDate('month', -1)}
-					>
+					<button type="button" id="prevCurMonth" onClick={() => this.clickChangeDate('month', -1)}>
 						{'<'}
 					</button>
-					<div>{`${curDate.getFullYear()} /  ${curDate.getMonth()}`}</div>
-					<button
-						type="button"
-						id="nextCurMonth"
-						onClick={() => this.clickChangeDate('month', 1)}
-					>
+					<div>{`${curDate.getFullYear()} /  ${curDate.getMonth() + 1}`}</div>
+					<button type="button" id="nextCurMonth" onClick={() => this.clickChangeDate('month', 1)}>
 						{'>'}
 					</button>
 				</div>
@@ -531,19 +523,11 @@ class Calendar extends Component {
 					</table>
 				</div>
 				<div className="option">
-					<button
-						type="button"
-						id="resetCurDate"
-						onClick={this.clickResetCurDate}
-					>
+					<button type="button" id="resetCurDate" onClick={this.clickResetCurDate}>
 						{'resetCurDate'}
 					</button>
 
-					<button
-						type="button"
-						id="returnSelectedDates"
-						onClick={this.returnSelectedDates}
-					>
+					<button type="button" id="returnSelectedDates" onClick={this.returnSelectedDates}>
 						{'returnSelectedDates'}
 					</button>
 				</div>

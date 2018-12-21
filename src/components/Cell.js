@@ -13,13 +13,13 @@ class Cell extends Component {
 		});
 
 	render() {
-		const { date, className, label } = this.props.info;
+		const { date, dateClassName, label, labelClassName, tdClassName } = this.props.info;
 		const { index } = this.props;
 		return (
-			<td className="date" name={index} onClick={() => this.clickDate(index)}>
-				<div className={className.join(' ')}>{date.getDate()}</div>
+			<td className={tdClassName.join(' ')} name={index} onClick={() => this.clickDate(index)}>
+				<div className={dateClassName.join(' ')}>{date.getDate()}</div>
 				{label.map((l, i) => (
-					<div className="label" key={i}>
+					<div className={`label ${labelClassName[i]}`} key={i}>
 						{l}
 					</div>
 				))}
