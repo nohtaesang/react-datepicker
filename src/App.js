@@ -17,7 +17,7 @@ class App extends Component {
 	}
 
 	initCalendarState = () => ({
-		mode: { type: 'one', label: '선택됨', tdClassName: 'selected' },
+		mode: { type: 'one', tdClassName: 'selected', label: '선택됨', labelClassName: 'selected' },
 		markings: [
 			{
 				type: 'repetition-date',

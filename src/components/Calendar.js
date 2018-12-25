@@ -369,11 +369,17 @@ class Calendar extends Component {
 		new Promise((resolve, reject) => {
 			const { mode, curCalendarDates, selectedDates } = this.state;
 			if (mode.type === 'one') {
-				if (selectedDates.length === 0) return;
+				console.log(selectedDates);
+				if (selectedDates.length === 0) resolve(true);
 
 				for (let i = 0; i < curCalendarDates.length; i += 1) {
 					if (curCalendarDates[i].date.getTime() === selectedDates[0].date.getTime()) {
 						curCalendarDates[i].tdClassName = curCalendarDates[i].tdClassName.concat(mode.tdClassName);
+						curCalendarDates[i].labelClassName = curCalendarDates[i].labelClassName.concat(
+							mode.labelClassName
+						);
+						curCalendarDates[i].label = curCalendarDates[i].label.concat(mode.label);
+						console.log(curCalendarDates[i]);
 						break;
 					}
 				}
