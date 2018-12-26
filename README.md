@@ -1,12 +1,7 @@
 # React calendar component ( 2018.12.26 )
 <hr>
-
 ## Example 
-
-<pre>
 http://ec2-54-89-58-158.compute-1.amazonaws.com
-</pre>
-
 <hr>
 
 ## Usage
