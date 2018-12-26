@@ -1,9 +1,24 @@
+#toggleCalendar {
+	width: 25px;
+	height: 25px;
+	margin-bottom: 10px;
+	border: solid black 1px;
+	background-color: white;
+	color: black;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#toggleCalendar:hover {
+	cursor: pointer;
+	border: 2px;
+}
+
 .nohCalendar {
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	width: 350px;
-	border: 1px solid whitesmoke;
+	border: none;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 /* year and month */
@@ -14,21 +29,26 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-evenly;
-	/* background: palegoldenrod; */
+	font-size: 18px;
+	font-weight: bold;
 }
+
 .nohCalendar .yearAndMonth button {
 	width: 50px;
 	height: 50px;
 	border: none;
 	background: none;
 	cursor: pointer;
-}
-.nohCalendar .yearAndMonth button:hover {
-	border: 1px solid skyblue;
-}
-.nohCalendar .yearAndMonth div {
-	font-size: 18px;
 	font-weight: bold;
+	font-size: 18px;
+}
+
+.nohCalendar .yearAndMonth button:hover {
+	/* border: 1px solid skyblue; */
+	font-size: 30px;
+}
+
+.nohCalendar .yearAndMonth div {
 }
 
 /* calendar */
@@ -36,6 +56,7 @@
 	display: flex;
 	width: 100%;
 }
+
 .nohCalendar .calendar table {
 	display: flex;
 	width: 100%;
@@ -62,7 +83,6 @@
 	display: flex;
 	height: 60px;
 	justify-content: flex-start;
-	/* align-items: center; */
 }
 
 .nohCalendar .calendar td {
@@ -81,30 +101,52 @@
 	opacity: 0.5;
 }
 
-.nohCalendar .calendar td.selected {
-	background: red;
-}
-
 .nohCalendar .calendar td div:first-child {
 	text-align: center;
 }
+
 .nohCalendar .calendar td div {
 	width: 100%;
-	/* text-align: left; */
 }
 
-.nohCalendar .calendar td.date:hover {
-	border: 1px solid cadetblue;
-}
-
-.nohCalendar .calendar td .date-red {
-	color: red;
+.nohCalendar .calendar td:hover {
+	border: 1px solid grey;
 }
 
 .nohCalendar .calendar td .label {
 	font-size: 8px;
+	border: none;
+	/* margin: 1px; */
 }
 
+.nohCalendar .calendar td.selected {
+	background: grey;
+	color: white;
+	border: none;
+}
+
+.nohCalendar .calendar td.start-selected {
+	background: black;
+	opacity: 1;
+}
+.nohCalendar .calendar td.end-selected {
+	background: black;
+	opacity: 1;
+}
+
+/* customize */
+.nohCalendar .calendar td .holiday {
+	color: red;
+}
+
+/* .nohCalendar .calendar td .exam {
+	background: #ff7979;
+	color: white;
+}
+.nohCalendar .calendar td .wed {
+	background: #badc58;
+	color: black;
+} */
 /* option */
 
 .nohCalendar .option {
@@ -114,11 +156,20 @@
 
 .nohCalendar .option button {
 	width: 50%;
-	background: none;
-	border: 1px solid whitesmoke;
+	font-size: 18px;
+	border: solid 1px whitesmoke;
 	cursor: pointer;
+	background: white;
 }
 
-.nohCalendar .option button:hover {
-	border: 1px solid darkcyan;
+.nohCalendar .option #returnSelectedDates {
+}
+
+.nohCalendar .option #returnSelectedDates:hover {
+	border: solid 1px #00c73c;
+}
+.nohCalendar .option #closeCalendar {
+}
+.nohCalendar .option #closeCalendar:hover {
+	border: solid 1px #ff7979;
 }
