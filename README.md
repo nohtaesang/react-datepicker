@@ -19,7 +19,6 @@
 
 #### markings
 <ol>
-  <li></li>
   <li>repetition-date</li>
   <li>repetition-day</li>
   <li>one-date</li>
@@ -27,3 +26,6 @@
   <li>period-date</li>
   <li>period-day</li>
 </ol>
+<pre>
+dgasdg
+</pre>
