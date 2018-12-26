@@ -12,10 +12,20 @@ http://ec2-54-89-58-158.compute-1.amazonaws.com
   <li>one</li>
   <pre>mode:{
     type: 'one'
-    tdClassName: 'selected'
+    tdClassName: 'selected' 
   }</pre>
   <li>multi</li>
+  <pre>mode:{
+    type: 'multi'
+    tdClassName: 'selected' 
+  }</pre>
   <li>period</li>
+  <pre>mode:{
+    type: 'period'
+    tdClassName: 'selected' 
+    startClassName: 'start-selected'
+    endClassName: 'end-selected'
+  }</pre>
 </ol>
 
 ### markings
