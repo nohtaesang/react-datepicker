@@ -6,8 +6,7 @@ http://ec2-54-89-58-158.compute-1.amazonaws.com
 <hr>
 
 ## Usage
-<pre>
-import React, { Component } from 'react';
+<pre>import React, { Component } from 'react';
 import Calendar from './components/Calendar';
 import './components/calendar.css';
 
@@ -64,9 +63,7 @@ class App extends Component {
 		);
 	}
 }
-
-export default App;
-</pre>
+export default App;</pre>
 
 ### mode
 <ol>
