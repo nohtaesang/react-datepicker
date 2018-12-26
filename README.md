@@ -7,7 +7,7 @@ http://ec2-54-89-58-158.compute-1.amazonaws.com
 
 ## Usage
 <code>
-	
+`
 import React, { Component } from 'react';
 import Calendar from './components/Calendar';
 import './components/calendar.css';
@@ -67,7 +67,7 @@ class App extends Component {
 	}
 }
 export default App;
-
+`
 </code>
 
 ### mode
