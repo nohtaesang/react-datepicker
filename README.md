@@ -13,7 +13,6 @@ http://ec2-54-89-58-158.compute-1.amazonaws.com
   <li>multi</li>
   <li>period</li>
 </ol>
- <hr>
 
 ### markings
 <ol>
