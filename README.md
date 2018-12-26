@@ -4,7 +4,7 @@
 ## Example 
 
 <pre>
-<http://ec2-54-89-58-158.compute-1.amazonaws.com/> 
+http://ec2-54-89-58-158.compute-1.amazonaws.com
 </pre>
 
 <hr>
