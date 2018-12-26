@@ -26,7 +26,7 @@ class App extends Component {
 	}
 
 	initCalendarState = () => ({
-		 mode: { type: 'one', tdClassName: 'selected' }, // 하루
+		 mode: { type: 'one', tdClassName: 'selected' }, 
 		 markings: [
 			{
 				type: 'repetition-date', 
@@ -41,7 +41,7 @@ class App extends Component {
 				dateClassName: 'holiday'
 			},
 			{
-				type: 'one-date', // 특정 날짜
+				type: 'one-date', 
 				date: '2019/01/05',
 				dateClassName: 'date-purple',
 				label: '생일',
@@ -60,11 +60,6 @@ class App extends Component {
 		return (
 			<div className="App">
 				<Calendar mode={mode} markings={markings} getDates={this.getDates} isActive={false} />
-				{/* {dates.length !== 0
-					? dates.map((a, i) => {
-							return <div key={i}>{`${a.getFullYear()} ${a.getMonth()} ${a.getDate()}`}</div>;
-					  })
-					: null} */}
 			</div>
 		);
 	}
