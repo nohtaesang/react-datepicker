@@ -1,4 +1,4 @@
-# React calendar component ( 2018.12.26 )
+# React date-picker component ( 2018.12.26 )
 <hr>
 
 ## Example 
