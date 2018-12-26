@@ -32,7 +32,7 @@ class App extends Component {
 				date: '12/25',
 				dateClassName: 'holiday',
 				label: 'X-mas',
-				labelClassName: 'korea'
+				labelClassName: 'x-mas'
 			},
 			{
 				type: 'repetition-day', 
