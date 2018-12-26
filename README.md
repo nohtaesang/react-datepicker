@@ -72,13 +72,14 @@ export default App;
 <ol>
   <li>one</li>
   <img src="https://user-images.githubusercontent.com/31440203/50450157-6ca0ad00-096f-11e9-9c77-ace525f25bf7.PNG">
-  ```
+ ```
   mode:{
     type: 'one'
     tdClassName: 'selected' 
   }
-<img src="https://user-images.githubusercontent.com/31440203/50450162-71fdf780-096f-11e9-8e94-d32cdf971c64.PNG">
 ```
+<img src="https://user-images.githubusercontent.com/31440203/50450162-71fdf780-096f-11e9-8e94-d32cdf971c64.PNG">
+
   <li>multi</li>
    <img src="https://user-images.githubusercontent.com/31440203/50450159-6e6a7080-096f-11e9-9793-d643497692f7.PNG">
   <pre>mode:{
