@@ -10,6 +10,12 @@ http://ec2-54-89-58-158.compute-1.amazonaws.com
 ### mode
 <ol>
   <li>one</li>
+  <pre>
+  mode:{
+    type: 'one'
+    tdClassName: 'selected'
+  }
+  </pre>
   <li>multi</li>
   <li>period</li>
 </ol>
