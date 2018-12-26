@@ -57,6 +57,7 @@ class App extends Component {
 	render() {
 		const { mode, markings, dates } = this.state;
 		return (
+		
 			<div className="App">
 				<Calendar mode={mode} markings={markings} getDates={this.getDates} isActive={false} />
 			</div>
