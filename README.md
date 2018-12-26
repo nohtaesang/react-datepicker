@@ -10,17 +10,19 @@ http://ec2-54-89-58-158.compute-1.amazonaws.com
 ### mode
 <ol>
   <li>one</li>
-  <img src="https://user-images.githubusercontent.com/31440203/50450153-6ad6e980-096f-11e9-9300-5cbf5ed64c67.PNG">
+  <img src="https://user-images.githubusercontent.com/31440203/50450157-6ca0ad00-096f-11e9-9c77-ace525f25bf7.PNG">
   <pre>mode:{
     type: 'one'
     tdClassName: 'selected' 
   }</pre>
   <li>multi</li>
+   <img src="https://user-images.githubusercontent.com/31440203/50450159-6e6a7080-096f-11e9-9793-d643497692f7.PNG">
   <pre>mode:{
     type: 'multi'
     tdClassName: 'selected' 
   }</pre>
   <li>period</li>
+   <img src="https://user-images.githubusercontent.com/31440203/50450160-6f9b9d80-096f-11e9-8f50-8b62e6f9dc1a.PNG">
   <pre>mode:{
     type: 'period'
     tdClassName: 'selected' 
