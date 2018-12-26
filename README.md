@@ -73,14 +73,10 @@ export default App;
   <li>one</li>
   <img src="https://user-images.githubusercontent.com/31440203/50450157-6ca0ad00-096f-11e9-9c77-ace525f25bf7.PNG">
 	
-<code>
-  mode:{
+<pre>mode:{
     type: 'one'
     tdClassName: 'selected' 
-  }
-</code>
-
-
+  }</pre>
   <li>multi</li>
    <img src="https://user-images.githubusercontent.com/31440203/50450159-6e6a7080-096f-11e9-9793-d643497692f7.PNG">
   <pre>mode:{
