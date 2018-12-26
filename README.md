@@ -10,11 +10,12 @@
 ### Usage
 
 #### mode
-<ul>
+<ol>
   <li>one</li>
   <li>multi</li>
   <li>period</li>
-<ul>
+<ol>
+  <hr>
 #### markings
 ##### 1. repetition-date
 ##### 2. repetition-day
