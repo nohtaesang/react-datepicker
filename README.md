@@ -10,6 +10,7 @@ http://ec2-54-89-58-158.compute-1.amazonaws.com
 ### mode
 <ol>
   <li>one</li>
+  ![1](https://user-images.githubusercontent.com/31440203/50450153-6ad6e980-096f-11e9-9300-5cbf5ed64c67.PNG)
   <pre>mode:{
     type: 'one'
     tdClassName: 'selected' 
