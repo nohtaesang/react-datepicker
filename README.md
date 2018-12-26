@@ -65,7 +65,8 @@ class App extends Component {
 		);
 	}
 }
-export default App;</code>
+export default App;
+</code>
 
 ### mode
 <ol>
