@@ -17,13 +17,13 @@
 </ol>
  <hr>
 
-<ol>
 #### markings
-##### 1. repetition-date
-##### 2. repetition-day
-##### 3. one-date
-##### 4. period
-##### 5. period-date
-##### 6. period-day
-  
+<ol>
+  <li></li>
+  <li>repetition-date</li>
+  <li>repetition-day</li>
+  <li>one-date</li>
+  <li>period</li>
+  <li>period-date</li>
+  <li>period-day</li>
 </ol>
