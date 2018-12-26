@@ -9,11 +9,12 @@
 
 ### Usage
 
-#### mode (1. one/ 2. multi/ 3. period)
-##### 1. one
-##### 2. multi
-##### 3. period
-
+#### mode
+<ul>
+  <li>one</li>
+  <li>multi</li>
+  <li>period</li>
+<ul>
 #### markings
 ##### 1. repetition-date
 ##### 2. repetition-day
