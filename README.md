@@ -1,4 +1,4 @@
-### React calendar component ( 2018.12.26 )
+# React calendar component ( 2018.12.26 )
 <hr>
 
 ### Example 
@@ -14,8 +14,10 @@
   <li>one</li>
   <li>multi</li>
   <li>period</li>
+</ol>
+ <hr>
+
 <ol>
-  <hr>
 #### markings
 ##### 1. repetition-date
 ##### 2. repetition-day
@@ -23,3 +25,5 @@
 ##### 4. period
 ##### 5. period-date
 ##### 6. period-day
+  
+</ol>
