@@ -1,44 +1,107 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React date-picker component ( 2018.12.26 )
+<hr>
 
-## Available Scripts
+## Example 
+http://ec2-54-89-58-158.compute-1.amazonaws.com
+<hr>
 
-In the project directory, you can run:
+## Usage
+```
+import React, { Component } from 'react';
+import Calendar from './components/Calendar';
+import './components/calendar.css';
 
-### `npm start`
+class App extends Component {
+	constructor() {
+		super();
+		this.state = {
+			mode: 'one',
+			markings: [],
+			dates: []
+		};
+	}
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+	componentWillMount() {
+		this.setState(this.initCalendarState);
+	}
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+	initCalendarState = () => ({
+		 mode: { type: 'one', tdClassName: 'selected' }, 
+		 markings: [
+			{
+				type: 'repetition-date', 
+				date: '12/25',
+				dateClassName: 'holiday',
+				label: 'X-mas',
+				labelClassName: 'x-mas'
+			},
+			{
+				type: 'repetition-day', 
+				day: '0',
+				dateClassName: 'holiday'
+			},
+			{
+				type: 'one-date', 
+				date: '2019/01/05',
+				dateClassName: 'date-purple',
+				label: '생일',
+				labelClassName: 'my-birth-day'
+			}
+		]
+	});
 
-### `npm test`
+	getDates = returnDates => {
+		console.log(returnDates);
+		this.setState({ dates: returnDates });
+	};
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+	render() {
+		const { mode, markings, dates } = this.state;
+		return (
+		
+			<div className="App">
+				<Calendar mode={mode} markings={markings} getDates={this.getDates} isActive={false} />
+			</div>
+		);
+	}
+}
+export default App;
+```
 
-### `npm run build`
+### mode
+<ol>
+  <li>one</li>
+  <img src="https://user-images.githubusercontent.com/31440203/50450157-6ca0ad00-096f-11e9-9c77-ace525f25bf7.PNG">
+	
+<pre>mode:{
+    type: 'one'
+    tdClassName: 'selected' 
+  }</pre>
+  <li>multi</li>
+   <img src="https://user-images.githubusercontent.com/31440203/50450159-6e6a7080-096f-11e9-9793-d643497692f7.PNG">
+  <pre>mode:{
+    type: 'multi'
+    tdClassName: 'selected' 
+  }</pre>
+  <li>period</li>
+   <img src="https://user-images.githubusercontent.com/31440203/50450160-6f9b9d80-096f-11e9-8f50-8b62e6f9dc1a.PNG">
+  <pre>mode:{
+    type: 'period'
+    tdClassName: 'selected' 
+    startClassName: 'start-selected'
+    endClassName: 'end-selected'
+  }</pre>
+</ol>
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### markings
+<ol>
+  <li>repetition-date</li>
+  <li>repetition-day</li>
+  <li>one-date</li>
+  <li>period</li>
+  <li>period-date</li>
+  <li>period-day</li>
+</ol>
+<pre>
+dgasdg
+</pre>
