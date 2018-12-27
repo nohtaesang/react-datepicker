@@ -1,9 +1,10 @@
 수정중...
 # React date-picker component ( 2018.12.26 )
 <hr>
+
 ## Example 
 http://ec2-54-89-58-158.compute-1.amazonaws.com
-<hr>
+
 
 ## Usage
 ```
