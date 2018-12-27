@@ -2,9 +2,6 @@
 
 <img width="363" alt="2018-12-27 3 45 55" src="https://user-images.githubusercontent.com/31440203/50469419-a4e7d000-09ef-11e9-8e5a-e67d636e8426.png">
 
-<br>
-<br>
-<br>
 ## Example
 ```
 import React, { Component } from 'react';
@@ -67,10 +64,6 @@ class App extends Component {
 }
 export default App;
 ```
-
-<br>
-<br>
-<br>
 
 ### mode
 #### 날짜를 선택하는 방식을 정할 수 있다 (one, multi, period)
