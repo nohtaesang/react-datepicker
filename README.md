@@ -67,10 +67,10 @@ export default App;
 ### mode
 <ol>
   <li>one</li>	
-  <pre> mode: { 
+  <code> mode: { 
 	type: 'one', 
 	tdClassName: 'selected' 
-	} </pre>
+	} </code>
 		 
 
   <li>multi</li>
