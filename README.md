@@ -71,15 +71,18 @@ export default App;
 ### mode
 <ol>
   <li>one</li>
+	<pre>
 	mode: { type: 'one', tdClassName: 'selected' } 
-	
+	</pre>
 		 
 
   <li>multi</li>
+  <pre>
   	mode: {
 	type: 'multi',
 	tdClassName: 'selected'
 	}
+	</pre>
  
   <li>period</li>
   mode: {
