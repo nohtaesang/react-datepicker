@@ -81,13 +81,20 @@ export default App;
 ### markings
 <ol>
   <li>repetition-date</li>
-	<code>markings:[{ type: 'repetition-date', date: '12/25', dateClassName: 'holiday', label: 'X-Mas', labelClassName: 'x-mas'}]</code>
+	<code>
+	markings:[{ type: 'repetition-date', date: '12/25', dateClassName: 'holiday', label: 'X-Mas', labelClassName: 'x-mas'}]
+	</code>
 	
   <li>repetition-day</li>
-  	<code>markings: [{type: 'repetition-day', day: '0', dateClassName: 'holiday'}] </code>
+  	<code>
+	markings:[{ type: 'repetition-day', day: '0', dateClassName: 'holiday'}]
+	</code>
   	
   
   <li>one-date</li>
+  	<code>
+	markings:[{ type: 'one-date', date: '2019/01/05', dateClassName: 'date-orange', label: '생일', labelClassName: 'my-birth-day'}]
+	</code>
   
   <li>period</li>
   
