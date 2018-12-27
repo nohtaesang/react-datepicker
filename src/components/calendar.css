@@ -119,7 +119,7 @@
 	/* margin: 1px; */
 }
 
-.nohCalendar .calendar td.selected {
+/* .nohCalendar .calendar td.selected {
 	background: grey;
 	color: white;
 	border: none;
@@ -132,12 +132,12 @@
 .nohCalendar .calendar td.end-selected {
 	background: black;
 	opacity: 1;
-}
+} */
 
 /* customize */
-.nohCalendar .calendar td .holiday {
+/* .nohCalendar .calendar td .holiday {
 	color: red;
-}
+} */
 
 /* .nohCalendar .calendar td .exam {
 	background: #ff7979;
@@ -175,10 +175,47 @@
 }
 
 .date-orange {
-	color: orange;
+	color: #fcc419;
 }
 
 .my-birth-day {
-	background: teal;
+	background: #fcc419;
+	color: black;
+}
+
+.selected {
+	background: #5c7cfa;
+	color: white;
+	border: none;
+}
+
+.start-selected {
+	background: #364fc7;
+}
+
+.end-selected {
+	background: #364fc7;
+}
+
+.holiday {
+	color: red;
+}
+
+.x-mas {
+	background: #087f5b;
+	color: white;
+}
+
+.exam {
+	background: #f03e3e;
+	color: white;
+}
+
+.nine {
+	background: #fcc2d7;
+}
+
+.wed {
+	background: #212529;
 	color: white;
 }
