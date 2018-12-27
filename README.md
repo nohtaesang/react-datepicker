@@ -79,6 +79,8 @@ export default App;
 	<br>
 	<img width="207" alt="2018-12-27 3 52 35" src="https://user-images.githubusercontent.com/31440203/50469445-bc26bd80-09ef-11e9-9e33-bdf8ac69ec56.png">
 	<br>
+	<br>
+	<br>
   <li>multi: 다수의 날짜를 선택할 수 있다</li>
   <code>mode: { type: 'multi', tdClassName: 'selected' }</code>
 	<br>
