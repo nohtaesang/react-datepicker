@@ -93,6 +93,3 @@ export default App;
   <li>period-day</li>
 
 </ol>
-<pre>
-dgasdg
-</pre>
