@@ -1,4 +1,3 @@
-수정중...
 # React date-picker component ( 2018.12.26 )
 
 <img width="363" alt="2018-12-27 3 45 55" src="https://user-images.githubusercontent.com/31440203/50469419-a4e7d000-09ef-11e9-8e5a-e67d636e8426.png">
