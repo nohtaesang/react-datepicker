@@ -97,9 +97,14 @@ export default App;
 	</code>
   
   <li>period</li>
+  	<code>
+	markings:[{ type: 'period', startDate: '2018/12/05', endDate: '2018/12/11', label: 'Exam', labelClassName: 'exam'}]
+	</code>
   
   <li>period-date</li>
-  
+  	<code>
+  	markings:[{ type: 'period-date', startDate: '2018/11/01', endDate: '2018/12/15', date: '09', label: '9일', labelClassName: 'nine'}]
+  	</code>
   <li>period-day</li>
 
 </ol>
