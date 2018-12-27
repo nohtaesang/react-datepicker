@@ -98,7 +98,7 @@ export default App;
 </ol>
 
 ### markings
-#### 캘린더에 미리 디자인을 적용할 수 (repetition-date, repetition-day, one-date, period, period-date, period-day)
+#### 캘린더에 미리 디자인을 적용할 수 있다 (repetition-date, repetition-day, one-date, period, period-date, period-day)
 <ol>
   <li>repetition-date: 연도와 상관 없이 특정 월, 일에 맞는 날짜를 선택한다</li>
 	<code>
