@@ -1,6 +1,9 @@
 수정중...
 # React date-picker component ( 2018.12.26 )
 
+<img width="363" alt="2018-12-27 3 45 55" src="https://user-images.githubusercontent.com/31440203/50469419-a4e7d000-09ef-11e9-8e5a-e67d636e8426.png">
+
+
 ## Example
 ```
 import React, { Component } from 'react';
@@ -25,14 +28,14 @@ class App extends Component {
 		 mode: { type: 'one', tdClassName: 'selected' }, 
 		 markings: [
 			{
-				type: 'repetition-date', 
+				type: 'repetition-date',
 				date: '12/25',
 				dateClassName: 'holiday',
 				label: 'X-Mas',
 				labelClassName: 'x-mas'
 			},
 			{
-				type: 'repetition-day', 
+				type: 'repetition-day',
 				day: '0',
 				dateClassName: 'holiday'
 			},
@@ -63,8 +66,6 @@ class App extends Component {
 }
 export default App;
 ```
-
-<img width="363" alt="2018-12-27 3 45 55" src="https://user-images.githubusercontent.com/31440203/50469419-a4e7d000-09ef-11e9-8e5a-e67d636e8426.png">
 
 
 ### mode
