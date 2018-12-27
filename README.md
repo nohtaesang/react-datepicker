@@ -68,7 +68,7 @@ export default App;
 
 
 ### mode
-#### 날짜를 선택하는 방식을 정할 수 있다
+#### 날짜를 선택하는 방식을 정할 수 있다 (one, multi, period)
 <ol>
   <li>one: 특정 날짜를 선택할 수 있다</li>	
   <code>mode: { type: 'one', tdClassName: 'selected' }</code>
@@ -94,7 +94,7 @@ export default App;
 </ol>
 
 ### markings
-#### 캘린더에 미리 디자인을 적용할 수 
+#### 캘린더에 미리 디자인을 적용할 수 (repetition-date, repetition-day, one-date, period, period-date, period-day)
 <ol>
   <li>repetition-date: 연도와 상관 없이 특정 월, 일에 맞는 날짜를 선택한다</li>
 	<code>
