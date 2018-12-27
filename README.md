@@ -67,25 +67,14 @@ export default App;
 ### mode
 <ol>
   <li>one</li>	
-  <code> mode: { 
-	type: 'one', 
-	tdClassName: 'selected' 
-	} </code>
+  <code>mode: { type: 'one', tdClassName: 'selected' }</code>
 		 
 
   <li>multi</li>
-  <pre> mode: { 
-		type: 'multi', 
-		tdClassName: 'selected' 
-		} </pre>
+  <code>mode: { type: 'multi', tdClassName: 'selected' }</code>
  
   <li>period</li>
-  <pre>	mode:{ 
-  		type: 'period', 
-		startClassName: 'start-selected', 
-		endClassName: 'end-selected', 
-		tdClassName: 'selected' 
-		}</pre>
+  <code>mode:{ type: 'period', startClassName: 'start-selected', endClassName: 'end-selected', tdClassName: 'selected' }</code>
   
 </ol>
 
