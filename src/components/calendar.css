@@ -173,3 +173,12 @@
 .nohCalendar .option #closeCalendar:hover {
 	border: solid 1px #ff7979;
 }
+
+.date-orange {
+	color: orange;
+}
+
+.my-birth-day {
+	background: teal;
+	color: white;
+}
