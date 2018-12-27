@@ -112,6 +112,7 @@ export default App;
 	<img width="285" alt="2018-12-27 4 05 41" src="https://user-images.githubusercontent.com/31440203/50470073-918a3400-09f2-11e9-88be-fe6727af3ce3.png">
 	<br>
 	
+	
   <li>repetition-day: 특정 요일에 맞는 날짜를 선택한다</li>
   	<code>
 	markings:[{ type: 'repetition-day', day: '0', dateClassName: 'holiday'}]
