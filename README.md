@@ -65,15 +65,16 @@ export default App;
 ```
 
 ### mode
+#### 날짜를 선택하는 방식을 정할 수 있다
 <ol>
-  <li>one</li>	
+  <li>one: 특정 날짜를 선택할 수 있다</li>	
   <code>mode: { type: 'one', tdClassName: 'selected' }</code>
 		 
 
-  <li>multi</li>
+  <li>multi: 다수의 날짜를 선택할 수 있다</li>
   <code>mode: { type: 'multi', tdClassName: 'selected' }</code>
  
-  <li>period</li>
+  <li>period: 특정 기간을 선택할 수 있다</li>
   <code>mode:{ type: 'period', startClassName: 'start-selected', endClassName: 'end-selected', tdClassName: 'selected' }</code>
   
 </ol>
