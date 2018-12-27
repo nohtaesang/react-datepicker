@@ -86,11 +86,15 @@ export default App;
 	<br>
 	<img width="278" alt="2018-12-27 3 48 46" src="https://user-images.githubusercontent.com/31440203/50469432-b16c2880-09ef-11e9-9d63-1f3e1ce91c4b.png">
  
- 
- 
   <li>period: 특정 기간을 선택할 수 있다</li>
   <code>mode:{ type: 'period', startClassName: 'start-selected', endClassName: 'end-selected', tdClassName: 'selected' }</code>
-  
+  <br>
+  <img width="359" alt="2018-12-27 3 52 59" src="https://user-images.githubusercontent.com/31440203/50469436-b6c97300-09ef-11e9-9282-3be97e960417.png">
+  <br>
+  <img width="375" alt="2018-12-27 3 53 07" src="https://user-images.githubusercontent.com/31440203/50469441-b9c46380-09ef-11e9-81a5-10a513d4b9ee.png">
+  <br>
+  <img width="211" alt="2018-12-27 3 52 39" src="https://user-images.githubusercontent.com/31440203/50469448-bdf08100-09ef-11e9-9eba-4801fbf223c5.png">
+  <br>
 </ol>
 
 ### markings
