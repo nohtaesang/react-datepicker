@@ -72,9 +72,12 @@ export default App;
 <ol>
   <li>one: 특정 날짜를 선택할 수 있다</li>	
   <code>mode: { type: 'one', tdClassName: 'selected' }</code>
-<img width="365" alt="2018-12-27 3 46 27" src="https://user-images.githubusercontent.com/31440203/50469422-a618fd00-09ef-11e9-97f3-93260f396ad1.png">
+	<br>
+	<img width="365" alt="2018-12-27 3 46 27" src="https://user-images.githubusercontent.com/31440203/50469422-a618fd00-09ef-11e9-97f3-93260f396ad1.png">
+	<br>
 	<img width="275" alt="2018-12-27 3 46 45" src="https://user-images.githubusercontent.com/31440203/50469424-a6b19380-09ef-11e9-813e-e6ecf66bc935.png">
-		 <img width="207" alt="2018-12-27 3 52 35" src="https://user-images.githubusercontent.com/31440203/50469445-bc26bd80-09ef-11e9-9e33-bdf8ac69ec56.png">
+	
+	<img width="207" alt="2018-12-27 3 52 35" src="https://user-images.githubusercontent.com/31440203/50469445-bc26bd80-09ef-11e9-9e33-bdf8ac69ec56.png">
 
   <li>multi: 다수의 날짜를 선택할 수 있다</li>
   <code>mode: { type: 'multi', tdClassName: 'selected' }</code>
