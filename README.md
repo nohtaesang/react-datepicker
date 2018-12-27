@@ -106,5 +106,8 @@ export default App;
   	markings:[{ type: 'period-date', startDate: '2018/11/01', endDate: '2018/12/15', date: '09', label: '9일', labelClassName: 'nine'}]
   	</code>
   <li>period-day</li>
+  	<code>
+	markings:[{ type: 'period-day', startDate: '2018/11/01', endDate: '2018/12/15', day: '3',label: '수요일',labelClassName: 'wed'}]
+	</code>
 
 </ol>
