@@ -28,7 +28,7 @@ class App extends Component {
 				type: 'repetition-date', 
 				date: '12/25',
 				dateClassName: 'holiday',
-				label: 'X-mas',
+				label: 'X-Mas',
 				labelClassName: 'x-mas'
 			},
 			{
@@ -39,7 +39,7 @@ class App extends Component {
 			{
 				type: 'one-date', 
 				date: '2019/01/05',
-				dateClassName: 'date-purple',
+				dateClassName: 'date-orange',
 				label: '생일',
 				labelClassName: 'my-birth-day'
 			}
@@ -64,6 +64,7 @@ class App extends Component {
 export default App;
 ```
 
+
 ### mode
 #### 날짜를 선택하는 방식을 정할 수 있다
 <ol>
@@ -80,6 +81,7 @@ export default App;
 </ol>
 
 ### markings
+#### 캘린더에 미리 디자인을 적용할 수 
 <ol>
   <li>repetition-date</li>
 	<code>
