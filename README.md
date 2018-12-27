@@ -2,7 +2,9 @@
 
 <img width="363" alt="2018-12-27 3 45 55" src="https://user-images.githubusercontent.com/31440203/50469419-a4e7d000-09ef-11e9-8e5a-e67d636e8426.png">
 
-
+<br>
+<br>
+<br>
 ## Example
 ```
 import React, { Component } from 'react';
@@ -66,6 +68,9 @@ class App extends Component {
 export default App;
 ```
 
+<br>
+<br>
+<br>
 
 ### mode
 #### 날짜를 선택하는 방식을 정할 수 있다 (one, multi, period)
@@ -88,6 +93,9 @@ export default App;
 	<br>
 	<img width="278" alt="2018-12-27 3 48 46" src="https://user-images.githubusercontent.com/31440203/50469432-b16c2880-09ef-11e9-9d63-1f3e1ce91c4b.png">
  
+<br>
+<br>
+<br>
   <li>period: 특정 기간을 선택할 수 있다</li>
   <code>mode:{ type: 'period', startClassName: 'start-selected', endClassName: 'end-selected', tdClassName: 'selected' }</code>
   <br>
@@ -97,6 +105,9 @@ export default App;
   <br>
   <img width="211" alt="2018-12-27 3 52 39" src="https://user-images.githubusercontent.com/31440203/50469448-bdf08100-09ef-11e9-9eba-4801fbf223c5.png">
   <br>
+<br>
+<br>
+<br>
 </ol>
 
 ### markings
@@ -114,6 +125,9 @@ export default App;
 	<img width="285" alt="2018-12-27 4 05 41" src="https://user-images.githubusercontent.com/31440203/50470073-918a3400-09f2-11e9-88be-fe6727af3ce3.png">
 	<br>
 	
+<br>
+<br>
+<br>
 	
   <li>repetition-day: 특정 요일에 맞는 날짜를 선택한다</li>
   	<code>
@@ -123,6 +137,9 @@ export default App;
 	<img width="362" alt="2018-12-27 4 06 48" src="https://user-images.githubusercontent.com/31440203/50470077-9818ab80-09f2-11e9-907c-aa4657fc9935.png">
 	<br>
   	
+<br>
+<br>
+<br>
   
   <li>one-date: 연, 월, 일에 맞는 날짜를 선택한다</li>
   	<code>
@@ -131,6 +148,10 @@ export default App;
 	<br>
 	<img width="362" alt="2018-12-27 4 08 24" src="https://user-images.githubusercontent.com/31440203/50470099-a666c780-09f2-11e9-8a77-10d0c70b2a0e.png">
 	<br>
+	
+<br>
+<br>
+<br>
   
   <li>period: 특정 기간을 선택한다</li>
   	<code>
@@ -139,6 +160,9 @@ export default App;
 	<br>
 	<img width="358" alt="2018-12-27 4 09 54" src="https://user-images.githubusercontent.com/31440203/50470081-9d75f600-09f2-11e9-8ac3-c3711d8abd92.png">
 	<br>
+<br>
+<br>
+<br>
   
   <li>period-date: 특정 기간 동안에 특정 일과 일치하는 날짜를 선택한다</li>
   	<code>
@@ -150,6 +174,9 @@ export default App;
 	<img width="360" alt="2018-12-27 4 11 20" src="https://user-images.githubusercontent.com/31440203/50470096-a49d0400-09f2-11e9-8cba-feac812e5dfc.png">
 	<br>
 	
+<br>
+<br>
+<br>
   <li>period-day: 특정 기간 동안에 특정 요일과 일치하는 날짜를 선택한다</li>
   	<code>
 	markings:[{ type: 'period-day', startDate: '2018/11/01', endDate: '2018/12/15', day: '3',label: '수요일',labelClassName: 'wed'}]
@@ -157,10 +184,16 @@ export default App;
 	<br>
 	<img width="360" alt="2018-12-27 4 12 15" src="https://user-images.githubusercontent.com/31440203/50470103-a797f480-09f2-11e9-9862-3f760f82d01f.png">
 	<br>
+<br>
+<br>
+<br>
 
   <li> 모두 적용한 형태</li>
   	<br>
   	<img width="363" alt="2018-12-27 4 12 50" src="https://user-images.githubusercontent.com/31440203/50470105-a8c92180-09f2-11e9-87b1-2cb8959b3768.png">
   	<br>
+<br>
+<br>
+<br>
 
 </ol>
