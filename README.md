@@ -126,7 +126,7 @@ export default App;
 	markings:[{ type: 'one-date', date: '2019/01/05', dateClassName: 'date-orange', label: '생일', labelClassName: 'my-birth-day'}]
 	</code>
 	<br>
-	<img width="358" alt="2018-12-27 4 09 54" src="https://user-images.githubusercontent.com/31440203/50470081-9d75f600-09f2-11e9-8ac3-c3711d8abd92.png">
+	<img width="362" alt="2018-12-27 4 08 24" src="https://user-images.githubusercontent.com/31440203/50470099-a666c780-09f2-11e9-8a77-10d0c70b2a0e.png">
 	<br>
   
   <li>period: 특정 기간을 선택한다</li>
@@ -134,7 +134,7 @@ export default App;
 	markings:[{ type: 'period', startDate: '2018/12/05', endDate: '2018/12/11', label: 'Exam', labelClassName: 'exam'}]
 	</code>
 	<br>
-	<img width="362" alt="2018-12-27 4 08 24" src="https://user-images.githubusercontent.com/31440203/50470099-a666c780-09f2-11e9-8a77-10d0c70b2a0e.png">
+	<img width="358" alt="2018-12-27 4 09 54" src="https://user-images.githubusercontent.com/31440203/50470081-9d75f600-09f2-11e9-8ac3-c3711d8abd92.png">
 	<br>
   
   <li>period-date: 특정 기간 동안에 특정 일과 일치하는 날짜를 선택한다</li>
