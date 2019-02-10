@@ -1,8 +1,18 @@
-# React date-picker component ( 2018.12.26 )
+## React date picker component
+Calendar UI를 통해 원하는 date를 선택 할 수 있는 react component
+ 
+## Motivation
+```
+http://d2campusfest.kr/6th/
+```
+네이버 D2 Campus에서 주최한 6th capmus fest에 제출하기 위해 제작하였다.
 
-<img width="363" alt="2018-12-27 3 45 55" src="https://user-images.githubusercontent.com/31440203/50469419-a4e7d000-09ef-11e9-8e5a-e67d636e8426.png">
+## Tech/framework used
+```
+react
+```
 
-## Example
+## Usage
 ```
 import React, { Component } from 'react';
 import Calendar from './components/Calendar';
@@ -65,6 +75,8 @@ class App extends Component {
 export default App;
 ```
 
+
+## Screenshots
 ### mode
 #### 날짜를 선택하는 방식을 정할 수 있다 (one, multi, period)
 <ol>
